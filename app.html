@@ -568,253 +568,259 @@
     </header>
 
     <main class="container">
-        <!-- 分类导航 -->
-        <div class="categories">
-            <div class="category">
-                <i class="fas fa-hamburger"></i>
-                <span>快餐</span>
-            </div>
-            <div class="category">
-                <i class="fas fa-pizza-slice"></i>
-                <span>西餐</span>
-            </div>
-            <div class="category">
-                <i class="fas fa-utensils"></i>
-                <span>中餐</span>
-            </div>
-            <div class="category">
-                <i class="fas fa-ice-cream"></i>
-                <span>甜点</span>
-            </div>
-            <div class="category">
-                <i class="fas fa-coffee"></i>
-                <span>饮品</span>
-            </div>
-            <div class="category">
-                <i class="fas fa-seedling"></i>
-                <span>健康餐</span>
-            </div>
-        </div>
+            <!-- 分类导航 -->
+            <div class="categories">
+                <div class="category" onclick="filterByCategory('all')">
+                    <i class="fas fa-utensils"></i>
+                    <span>全部</span>
+                </div>
+                <div class="category" onclick="filterByCategory('chinese')">
+                    <i class="fas fa-utensils"></i>
+                    <span>中餐</span>
+                </div>
+                <div class="category" onclick="filterByCategory('western')">
+                    <i class="fas fa-pizza-slice"></i>
+                    <span>西餐</span>
+                </div>
+                <div class="category" onclick="filterByCategory('snack')">
+                    <i class="fas fa-hamburger"></i>
+                    <span>快餐</span>
+                </div>
+                <div class="category" onclick="filterByCategory('dessert')">
+                    <i class="fas fa-ice-cream"></i>
+                    <span>甜点</span>
+                </div>
+                <div class="category" onclick="filterByCategory('drink')">
+                    <i class="fas fa-coffee"></i>
+                    <span>饮品</span>
+                 </div>
+                    <div class="category" onclick="filterByCategory('fit')">
+                        <i class="fas fa-seedling"></i>
+                        <span>健康餐</span>
+                    </div>
+                </div>
 
-        <!-- 推荐商家 -->
-        <h2 class="section-title">推荐商家</h2>
-        <div class="restaurants">
-            <div class="restaurant-card" onclick="selectRestaurant('restaurant1')">
-                <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                <div class="restaurant-info">
-                    <h3>串味炮馆</h3>
-                    <div class="restaurant-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 8.10</span>
-                        <span>30分钟送达</span>
-                    </div>
-                    <p>起送价 ¥114 | 配送费 ¥514</p>
-                </div>
-            </div>
-            
-            <div class="restaurant-card" onclick="selectRestaurant('restaurant2')">
-                <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                <div class="restaurant-info">
-                    <h3>会员制红茶小馆</h3>
-                    <div class="restaurant-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 4.7</span>
-                        <span>514分钟送达</span>
-                    </div>
-                    <p>起送价 ¥1919 | 配送费 ¥666</p>
-                </div>
-            </div>
-            
-            <div class="restaurant-card" onclick="selectRestaurant('restaurant3')">
-                <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                <div class="restaurant-info">
-                    <h3>披萨仙贝</h3>
-                    <div class="restaurant-meta">
-                        <span class="rating"><i class="fas fa-star"></i> 4.9</span>
-                        <span>114分钟送达</span>
-                    </div>
-                    <p>起送价 ¥2333 | 配送费 ¥888</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- 外卖订购表单 -->
-        <div class="form-section">
-            <h2>外卖订购信息</h2>
-            <p>请填写以下信息完成您的订单（）</p>
-            
-            <!-- 商家选择 -->
-            <div class="form-group">
-                <label>选择商家</label>
-                <div class="restaurant-cards">
-                    <div class="restaurant-card selected" onclick="selectRestaurant('restaurant1')">
-                        <h3>串味炮馆</h3>
-                        <p>串子 | 8.10分 | 30分钟送达</p>
-                        <p>起送价 ¥114 | 配送费 ¥514</p>
+
+                <!-- 推荐商家 -->
+                <!--<h2 class="section-title">推荐商家</h2>
+                <div class="restaurants">
+                    <div class="restaurant-card" onclick="selectRestaurant('restaurant1')">
+                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                        <div class="restaurant-info">
+                            <h3>串味炮馆</h3>
+                            <div class="restaurant-meta">
+                                <span class="rating"><i class="fas fa-star"></i> 8.10</span>
+                                <span>30分钟送达</span>
+                            </div>
+                            <p>起送价 ¥114 | 配送费 ¥514</p>
+                        </div>
                     </div>
+
                     <div class="restaurant-card" onclick="selectRestaurant('restaurant2')">
-                        <h3> 会员制红茶小馆</h3>
-                            <p>野兽大红茶 | 4.7分 | 514分钟送达</p>
+                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                        <div class="restaurant-info">
+                            <h3>会员制红茶小馆</h3>
+                            <div class="restaurant-meta">
+                                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                                <span>514分钟送达</span>
+                            </div>
                             <p>起送价 ¥1919 | 配送费 ¥666</p>
                         </div>
+                    </div>
+
                     <div class="restaurant-card" onclick="selectRestaurant('restaurant3')">
-                        <h3>披萨仙贝</h3>
-                        <p>木毛大披萨🍕 | 4.9分 | 114分钟送达</p>
-                        <p>起送价 ¥233 | 配送费 ¥888</p>
-                    </div>
-                </div>
-                <input type="hidden" id="restaurant" name="restaurant" value="restaurant1" required>
-                <div class="error-message">请选择一个商家</div>
-            </div>
-            
-            <!-- 菜品选择 -->
-            <div class="form-group">
-                <label>选择菜品（可多选）</label>
-                <div class="dish-options">
-                    <div class="dish-option selected" onclick="toggleDish('dish1')">
-                        <div class="dish-name">鱼香肉丝盖饭</div>
-                        <div class="dish-price">¥28</div>
-                        <div class="quantity-selector">
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', -1)">-</button>
-                            <input type="number" id="dish1-qty" class="quantity-input" value="1" min="0" max="10" readonly>
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', 1)">+</button>
+                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
+                        <div class="restaurant-info">
+                            <h3>披萨仙贝</h3>
+                            <div class="restaurant-meta">
+                                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                                <span>114分钟送达</span>
+                            </div>
+                            <p>起送价 ¥2333 | 配送费 ¥888</p>
                         </div>
                     </div>
-                    
-                    <div class="dish-option" onclick="toggleDish('dish2')">
-                        <div class="dish-name">小炒肉盖饭</div>
-                        <div class="dish-price">¥26</div>
-                        <div class="quantity-selector">
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', -1)">-</button>
-                            <input type="number" id="dish2-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', 1)">+</button>
+                </div>-->
+
+                <!-- 外卖订购表单 -->
+                <div class="form-section">
+                    <h2>外卖订购信息</h2>
+                    <p>请填写以下信息完成您的订单（）</p>
+
+                    <!-- 商家选择 -->
+                    <div class="form-group">
+                        <label>选择商家</label>
+                        <div class="restaurant-cards">
+                            <div class="restaurant-card selected" onclick="selectRestaurant('restaurant1')">
+                                <h3>串味炮馆</h3>
+                                <p>串子 | 8.10分 | 30分钟送达</p>
+                                <p>起送价 ¥114 | 配送费 ¥514</p>
+                            </div>
+                            <div class="restaurant-card" onclick="selectRestaurant('restaurant2')">
+                                <h3> 会员制红茶小馆</h3>
+                                <p>野兽大红茶 | 4.7分 | 514分钟送达</p>
+                                <p>起送价 ¥1919 | 配送费 ¥666</p>
+                            </div>
+                            <div class="restaurant-card" onclick="selectRestaurant('restaurant3')">
+                                <h3>披萨仙贝</h3>
+                                <p>木毛大披萨🍕 | 4.9分 | 114分钟送达</p>
+                                <p>起送价 ¥233 | 配送费 ¥888</p>
+                            </div>
+                        </div>
+                        <input type="hidden" id="restaurant" name="restaurant" value="restaurant1" required>
+                        <div class="error-message">请选择一个商家</div>
+                    </div>
+
+                    <!-- 菜品选择 -->
+                    <div class="form-group">
+                        <label>选择菜品（可多选）</label>
+                        <div class="dish-options">
+                            <div class="dish-option selected" onclick="toggleDish('dish1')">
+                                <div class="dish-name">鱼香肉丝盖饭</div>
+                                <div class="dish-price">¥28</div>
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', -1)">-</button>
+                                    <input type="number" id="dish1-qty" class="quantity-input" value="1" min="0" max="10" readonly>
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', 1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="dish-option" onclick="toggleDish('dish2')">
+                                <div class="dish-name">小炒肉盖饭</div>
+                                <div class="dish-price">¥26</div>
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', -1)">-</button>
+                                    <input type="number" id="dish2-qty" class="quantity-input" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', 1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="dish-option" onclick="toggleDish('dish3')">
+                                <div class="dish-name">麻辣香锅</div>
+                                <div class="dish-price">¥38</div>
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', -1)">-</button>
+                                    <input type="number" id="dish3-qty" class="quantity-input" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', 1)">+</button>
+                                </div>
+                            </div>
+
+                            <div class="dish-option" onclick="toggleDish('dish4')">
+                                <div class="dish-name">扬州炒饭</div>
+                                <div class="dish-price">¥22</div>
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', -1)">-</button>
+                                    <input type="number" id="dish4-qty" class="quantity-input" value="0" min="0" max="10" readonly>
+                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="dish-option" onclick="toggleDish('dish3')">
-                        <div class="dish-name">麻辣香锅</div>
-                        <div class="dish-price">¥38</div>
-                        <div class="quantity-selector">
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', -1)">-</button>
-                            <input type="number" id="dish3-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', 1)">+</button>
+
+                    <!-- 订单摘要 -->
+                    <div class="order-summary">
+                        <h3>订单摘要</h3>
+                        <div class="order-item">
+                            <span>菜品金额</span>
+                            <span id="subtotal">¥28</span>
+                        </div>
+                        <div class="order-item">
+                            <span>配送费</span>
+                            <span id="deliveryFee">¥5</span>
+                        </div>
+                        <div class="order-item">
+                            <span>包装费</span>
+                            <span>¥2</span>
+                        </div>
+                        <div class="order-total">
+                            <span>总计</span>
+                            <span id="totalAmount">¥35</span>
                         </div>
                     </div>
-                    
-                    <div class="dish-option" onclick="toggleDish('dish4')">
-                        <div class="dish-name">扬州炒饭</div>
-                        <div class="dish-price">¥22</div>
-                        <div class="quantity-selector">
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', -1)">-</button>
-                            <input type="number" id="dish4-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                            <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', 1)">+</button>
+
+                    <!-- 个人信息 -->
+                    <div class="form-group">
+                        <h3>收货信息</h3>
+
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                            <div class="error-message">请输入您的姓名</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">手机号码</label>
+                            <input type="tel" id="phone" name="phone" placeholder="请输入您的手机号码" pattern="[0-9]{11}" required>
+                            <div class="error-message">请输入正确的手机号码（11位数字）</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">配送地址</label>
+                            <textarea id="address" name="address" rows="3" placeholder="请输入详细的配送地址" required></textarea>
+                            <div class="error-message">请输入配送地址</div>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- 订单摘要 -->
-            <div class="order-summary">
-                <h3>订单摘要</h3>
-                <div class="order-item">
-                    <span>菜品金额</span>
-                    <span id="subtotal">¥28</span>
-                </div>
-                <div class="order-item">
-                    <span>配送费</span>
-                    <span id="deliveryFee">¥5</span>
-                </div>
-                <div class="order-item">
-                    <span>包装费</span>
-                    <span>¥2</span>
-                </div>
-                <div class="order-total">
-                    <span>总计</span>
-                    <span id="totalAmount">¥35</span>
-                </div>
-            </div>
-            
-            <!-- 个人信息 -->
-            <div class="form-group">
-                <h3>收货信息</h3>
-                
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
-                    <div class="error-message">请输入您的姓名</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">手机号码</label>
-                    <input type="tel" id="phone" name="phone" placeholder="请输入您的手机号码" pattern="[0-9]{11}" required>
-                    <div class="error-message">请输入正确的手机号码（11位数字）</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">配送地址</label>
-                    <textarea id="address" name="address" rows="3" placeholder="请输入详细的配送地址" required></textarea>
-                    <div class="error-message">请输入配送地址</div>
-                </div>
-            </div>
-            
-            <!-- 餐具选择 -->
-            <div class="form-group">
-                <h3>餐具选择</h3>
-                <p>是否需要一次性餐具？</p>
-                
-                <div class="radio-group">
-                    <div class="radio-option">
-                        <input type="radio" id="utensils-yes" name="utensils" value="yes">
-                        <label for="utensils-yes">需要一次性餐具</label>
-                    </div>
-                    
-                    <div class="radio-option">
-                        <input type="radio" id="utensils-no" name="utensils" value="no" checked>
-                        <label for="utensils-no">不需要一次性餐具</label>
-                    </div>
-                </div>
-                
-                <div id="utensils-details" style="display: none;">
-                    <label>选择需要的餐具（可多选）</label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="chopsticks" name="chopsticks" value="1">
-                            <label for="chopsticks">筷子</label>
+
+                    <!-- 餐具选择 -->
+                    <div class="form-group">
+                        <h3>餐具选择</h3>
+                        <p>是否需要一次性餐具？</p>
+
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="utensils-yes" name="utensils" value="yes">
+                                <label for="utensils-yes">需要一次性餐具</label>
+                            </div>
+
+                            <div class="radio-option">
+                                <input type="radio" id="utensils-no" name="utensils" value="no" checked>
+                                <label for="utensils-no">不需要一次性餐具</label>
+                            </div>
                         </div>
-                        
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="spoon" name="spoon" value="1">
-                            <label for="spoon">勺子</label>
-                        </div>
-                        
-                        <div class="checkbox-option">
-                            <input type="checkbox" id="fork" name="fork" value="1">
-                            <label for="fork">叉子</label>
+
+                        <div id="utensils-details" style="display: none;">
+                            <label>选择需要的餐具（可多选）</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="chopsticks" name="chopsticks" value="1">
+                                    <label for="chopsticks">筷子</label>
+                                </div>
+
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="spoon" name="spoon" value="1">
+                                    <label for="spoon">勺子</label>
+                                </div>
+
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="fork" name="fork" value="1">
+                                    <label for="fork">叉子</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 配送时间 -->
+                    <div class="form-group">
+                        <label for="delivery-time">期望配送时间</label>
+                        <select id="delivery-time" name="delivery-time">
+                            <option value="asap">尽快送达</option>
+                            <option value="30min">30分钟内</option>
+                            <option value="45min">45分钟内</option>
+                            <option value="60min">60分钟内</option>
+                            <option value="specific">指定时间</option>
+                        </select>
+                    </div>
+
+                    <!-- 备注 -->
+                    <div class="form-group">
+                        <label for="notes">备注</label>
+                        <textarea id="notes" name="notes" rows="3" placeholder="如有特殊要求，请在此备注（如：不要葱姜蒜、辣度要求等）"></textarea>
+                    </div>
+
+                    <!-- 提交按钮 -->
+                    <button type="button" class="btn btn-block" onclick="submitForm()">提交订单</button>
                 </div>
-            </div>
-            
-            <!-- 配送时间 -->
-            <div class="form-group">
-                <label for="delivery-time">期望配送时间</label>
-                <select id="delivery-time" name="delivery-time">
-                    <option value="asap">尽快送达</option>
-                    <option value="30min">30分钟内</option>
-                    <option value="45min">45分钟内</option>
-                    <option value="60min">60分钟内</option>
-                    <option value="specific">指定时间</option>
-                </select>
-            </div>
-            
-            <!-- 备注 -->
-            <div class="form-group">
-                <label for="notes">备注</label>
-                <textarea id="notes" name="notes" rows="3" placeholder="如有特殊要求，请在此备注（如：不要葱姜蒜、辣度要求等）"></textarea>
-            </div>
-            
-            <!-- 提交按钮 -->
-            <button type="button" class="btn btn-block" onclick="submitForm()">提交订单</button>
-        </div>
-    </main>
+</main>
 
     <footer>
         <div class="container">
@@ -861,7 +867,7 @@
             </div>
             
             <div class="copyright">
-                <p>美味外卖平台 &copy; 2025 版权所有 | 设计：王鹏飞</p>
+                <p>柚子外卖平台 &copy; 2025 版权所有 | 设计：Ica</p>
             </div>
         </div>
     </footer>
