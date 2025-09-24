@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>柚子外卖 - 在线订餐平台 Ciallo~</title>
+    <title>柚子外卖 ~ Ciallo～(∠·ω< )⌒★ - 在线订餐平台</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net/gh/Ica2us/MoeBlog@main/Moe/src/meguru.ogg">
     <style>
         :root {
             --primary-color: #e74c3c;
@@ -207,9 +208,9 @@
             gap: 1.5rem;
             margin: 1.5rem 0;
         }
-
+        
         .restaurant-card {
-            background: #ffbb00;
+            background: white;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--box-shadow);
@@ -374,6 +375,12 @@
             font-weight: bold;
         }
         
+        .dish-description {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            margin-bottom: 0.5rem;
+        }
+        
         /* 数量选择器 */
         .quantity-selector {
             display: flex;
@@ -534,7 +541,7 @@
                 <i class="logo1"></i>
                 柚子外卖
             </a>
-            
+
             <ul class="nav-links">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">商家</a></li>
@@ -542,12 +549,12 @@
                 <li><a href="#">我的订单</a></li>
                 <li><a href="#">帮助中心</a></li>
             </ul>
-            
+
             <div class="user-actions">
                 <a href="#"><i class="fas fa-search"></i></a>
                 <a href="#" class="cart-icon">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">3</span>
+                    <span class="cart-count" id="cartCount">0</span>
                 </a>
                 <a href="#"><i class="fas fa-user"></i></a>
             </div>
@@ -557,9 +564,9 @@
     <!-- 头部横幅 -->
     <header class="hero">
         <div class="container">
-            <h1>美味即刻送达~</h1>
+            <h1>美味即刻送达 ~</h1>
             <p>发现附近优质餐厅，享受便捷外卖服务</p>
-            
+
             <div class="search-bar">
                 <input type="text" placeholder="搜索餐厅或美食...">
                 <button><i class="fas fa-search"></i></button>
@@ -567,260 +574,174 @@
         </div>
     </header>
 
+    <!-- 音效资源 -->
+    <audio id="ciallo" src="https://cdn.jsdelivr.net/gh/Ica2us/MoeBlog@main/Moe/src/meguru.ogg" preload="auto"></audio>
+
     <main class="container">
-            <!-- 分类导航 -->
-            <div class="categories">
-                <div class="category" onclick="filterByCategory('all')">
-                    <i class="fas fa-utensils"></i>
-                    <span>全部</span>
+        <!-- 分类导航 -->
+        <div class="categories">
+            <div class="category" onclick="filterByCategory('all')">
+                <i class="fas fa-utensils"></i>
+                <span>全部</span>
+            </div>
+            <div class="category" onclick="filterByCategory('chinese')">
+                <i class="fas fa-utensils"></i>
+                <span>中餐</span>
+            </div>
+            <div class="category" onclick="filterByCategory('western')">
+                <i class="fas fa-pizza-slice"></i>
+                <span>西餐</span>
+            </div>
+            <div class="category" onclick="filterByCategory('snack')">
+                <i class="fas fa-hamburger"></i>
+                <span>快餐</span>
+            </div>
+            <div class="category" onclick="filterByCategory('dessert')">
+                <i class="fas fa-ice-cream"></i>
+                <span>甜点</span>
+            </div>
+            <div class="category" onclick="filterByCategory('drink')">
+                <i class="fas fa-coffee"></i>
+                <span>饮品</span>
+            </div>
+            <div class="category" onclick="filterByCategory('fit')">
+                <i class="fas fa-seedling"></i>
+                <span>健康餐</span>
+            </div>
+        </div>
+
+        <!-- 推荐商家 -->
+        <h2 class="section-title">推荐商家</h2>
+        <div class="restaurants" id="restaurantList">
+            <!-- 商家卡片将通过JavaScript动态生成 -->
+        </div>
+
+        <!-- 外卖订购表单 -->
+        <div class="form-section">
+            <h2>外卖订购信息</h2>
+            <p>请填写以下信息完成您的订单（本表单仅用于演示，不会真正提交）</p>
+
+            <!-- 商家选择 -->
+            <div class="form-group">
+                <label>选择商家</label>
+                <div class="restaurant-cards" id="formRestaurantCards">
+                    <!-- 商家卡片将通过JavaScript动态生成 -->
                 </div>
-                <div class="category" onclick="filterByCategory('chinese')">
-                    <i class="fas fa-utensils"></i>
-                    <span>中餐</span>
+                <input type="hidden" id="restaurant" name="restaurant" required>
+                <div class="error-message">请选择一个商家</div>
+            </div>
+
+            <!-- 菜品选择 -->
+            <div class="form-group">
+                <label>选择菜品（可多选）</label>
+                <div class="dish-options" id="dishOptions">
+                    <!-- 菜品选项将通过JavaScript动态生成 -->
                 </div>
-                <div class="category" onclick="filterByCategory('western')">
-                    <i class="fas fa-pizza-slice"></i>
-                    <span>西餐</span>
+            </div>
+
+            <!-- 订单摘要 -->
+            <div class="order-summary">
+                <h3>订单摘要</h3>
+                <div id="orderItems">
+                    <!-- 订单项目将通过JavaScript动态生成 -->
                 </div>
-                <div class="category" onclick="filterByCategory('snack')">
-                    <i class="fas fa-hamburger"></i>
-                    <span>快餐</span>
+                <div class="order-item">
+                    <span>配送费</span>
+                    <span id="deliveryFee">¥0</span>
                 </div>
-                <div class="category" onclick="filterByCategory('dessert')">
-                    <i class="fas fa-ice-cream"></i>
-                    <span>甜点</span>
+                <div class="order-item">
+                    <span>包装费</span>
+                    <span id="packagingFee">¥2</span>
                 </div>
-                <div class="category" onclick="filterByCategory('drink')">
-                    <i class="fas fa-coffee"></i>
-                    <span>饮品</span>
-                 </div>
-                    <div class="category" onclick="filterByCategory('fit')">
-                        <i class="fas fa-seedling"></i>
-                        <span>健康餐</span>
+                <div class="order-total">
+                    <span>总计</span>
+                    <span id="totalAmount">¥2</span>
+                </div>
+            </div>
+
+            <!-- 个人信息 -->
+            <div class="form-group">
+                <h3>收货信息</h3>
+
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
+                    <div class="error-message">请输入您的姓名</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">手机号码</label>
+                    <input type="tel" id="phone" name="phone" placeholder="请输入您的手机号码" pattern="[0-9]{11}" required>
+                    <div class="error-message">请输入正确的手机号码（11位数字）</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">配送地址</label>
+                    <textarea id="address" name="address" rows="3" placeholder="请输入详细的配送地址" required></textarea>
+                    <div class="error-message">请输入配送地址</div>
+                </div>
+            </div>
+
+            <!-- 餐具选择 -->
+            <div class="form-group">
+                <h3>餐具选择</h3>
+                <p>是否需要一次性餐具？</p>
+
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="utensils-yes" name="utensils" value="yes">
+                        <label for="utensils-yes">需要一次性餐具</label>
+                    </div>
+
+                    <div class="radio-option">
+                        <input type="radio" id="utensils-no" name="utensils" value="no" checked>
+                        <label for="utensils-no">不需要一次性餐具</label>
                     </div>
                 </div>
 
+                <div id="utensils-details" style="display: none;">
+                    <label>选择需要的餐具（可多选）</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="chopsticks" name="chopsticks" value="1">
+                            <label for="chopsticks">筷子</label>
+                        </div>
 
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="spoon" name="spoon" value="1">
+                            <label for="spoon">勺子</label>
+                        </div>
 
-                <!-- 推荐商家 -->
-                <!--<h2 class="section-title">推荐商家</h2>
-                <div class="restaurants">
-                    <div class="restaurant-card" onclick="selectRestaurant('restaurant1')">
-                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                        <div class="restaurant-info">
-                            <h3>串味炮馆</h3>
-                            <div class="restaurant-meta">
-                                <span class="rating"><i class="fas fa-star"></i> 8.10</span>
-                                <span>30分钟送达</span>
-                            </div>
-                            <p>起送价 ¥114 | 配送费 ¥514</p>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="fork" name="fork" value="1">
+                            <label for="fork">叉子</label>
                         </div>
                     </div>
-
-                    <div class="restaurant-card" onclick="selectRestaurant('restaurant2')">
-                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                        <div class="restaurant-info">
-                            <h3>会员制红茶小馆</h3>
-                            <div class="restaurant-meta">
-                                <span class="rating"><i class="fas fa-star"></i> 4.7</span>
-                                <span>514分钟送达</span>
-                            </div>
-                            <p>起送价 ¥1919 | 配送费 ¥666</p>
-                        </div>
-                    </div>
-
-                    <div class="restaurant-card" onclick="selectRestaurant('restaurant3')">
-                        <div class="restaurant-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')"></div>
-                        <div class="restaurant-info">
-                            <h3>披萨仙贝</h3>
-                            <div class="restaurant-meta">
-                                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
-                                <span>114分钟送达</span>
-                            </div>
-                            <p>起送价 ¥2333 | 配送费 ¥888</p>
-                        </div>
-                    </div>
-                </div>-->
-
-                <!-- 外卖订购表单 -->
-                <div class="form-section">
-                    <h2>外卖订购信息</h2>
-                    <p>请填写以下信息完成您的订单（）</p>
-
-                    <!-- 商家选择 -->
-                    <div class="form-group">
-                        <label>选择商家</label>
-                        <div class="restaurant-cards">
-                            <div class="restaurant-card selected" onclick="selectRestaurant('restaurant1')">
-                                <h3>串味炮馆</h3>
-                                <p>串子 | 8.10分 | 30分钟送达</p>
-                                <p>起送价 ¥114 | 配送费 ¥514</p>
-                            </div>
-                            <div class="restaurant-card" onclick="selectRestaurant('restaurant2')">
-                                <h3> 会员制红茶小馆</h3>
-                                <p>野兽大红茶 | 4.7分 | 514分钟送达</p>
-                                <p>起送价 ¥1919 | 配送费 ¥666</p>
-                            </div>
-                            <div class="restaurant-card" onclick="selectRestaurant('restaurant3')">
-                                <h3>披萨仙贝</h3>
-                                <p>木毛大披萨🍕 | 4.9分 | 114分钟送达</p>
-                                <p>起送价 ¥233 | 配送费 ¥888</p>
-                            </div>
-                        </div>
-                        <input type="hidden" id="restaurant" name="restaurant" value="restaurant1" required>
-                        <div class="error-message">请选择一个商家</div>
-                    </div>
-
-                    <!-- 菜品选择 -->
-                    <div class="form-group">
-                        <label>选择菜品（可多选）</label>
-                        <div class="dish-options">
-                            <div class="dish-option selected" onclick="toggleDish('dish1')">
-                                <div class="dish-name">鱼香肉丝盖饭</div>
-                                <div class="dish-price">¥28</div>
-                                <div class="quantity-selector">
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', -1)">-</button>
-                                    <input type="number" id="dish1-qty" class="quantity-input" value="1" min="0" max="10" readonly>
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish1', 1)">+</button>
-                                </div>
-                            </div>
-
-                            <div class="dish-option" onclick="toggleDish('dish2')">
-                                <div class="dish-name">小炒肉盖饭</div>
-                                <div class="dish-price">¥26</div>
-                                <div class="quantity-selector">
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', -1)">-</button>
-                                    <input type="number" id="dish2-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish2', 1)">+</button>
-                                </div>
-                            </div>
-
-                            <div class="dish-option" onclick="toggleDish('dish3')">
-                                <div class="dish-name">麻辣香锅</div>
-                                <div class="dish-price">¥38</div>
-                                <div class="quantity-selector">
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', -1)">-</button>
-                                    <input type="number" id="dish3-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish3', 1)">+</button>
-                                </div>
-                            </div>
-
-                            <div class="dish-option" onclick="toggleDish('dish4')">
-                                <div class="dish-name">扬州炒饭</div>
-                                <div class="dish-price">¥22</div>
-                                <div class="quantity-selector">
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', -1)">-</button>
-                                    <input type="number" id="dish4-qty" class="quantity-input" value="0" min="0" max="10" readonly>
-                                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('dish4', 1)">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 订单摘要 -->
-                    <div class="order-summary">
-                        <h3>订单摘要</h3>
-                        <div class="order-item">
-                            <span>菜品金额</span>
-                            <span id="subtotal">¥28</span>
-                        </div>
-                        <div class="order-item">
-                            <span>配送费</span>
-                            <span id="deliveryFee">¥5</span>
-                        </div>
-                        <div class="order-item">
-                            <span>包装费</span>
-                            <span>¥2</span>
-                        </div>
-                        <div class="order-total">
-                            <span>总计</span>
-                            <span id="totalAmount">¥35</span>
-                        </div>
-                    </div>
-
-                    <!-- 个人信息 -->
-                    <div class="form-group">
-                        <h3>收货信息</h3>
-
-                        <div class="form-group">
-                            <label for="name">姓名</label>
-                            <input type="text" id="name" name="name" placeholder="请输入您的姓名" required>
-                            <div class="error-message">请输入您的姓名</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="phone">手机号码</label>
-                            <input type="tel" id="phone" name="phone" placeholder="请输入您的手机号码" pattern="[0-9]{11}" required>
-                            <div class="error-message">请输入正确的手机号码（11位数字）</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="address">配送地址</label>
-                            <textarea id="address" name="address" rows="3" placeholder="请输入详细的配送地址" required></textarea>
-                            <div class="error-message">请输入配送地址</div>
-                        </div>
-                    </div>
-
-                    <!-- 餐具选择 -->
-                    <div class="form-group">
-                        <h3>餐具选择</h3>
-                        <p>是否需要一次性餐具？</p>
-
-                        <div class="radio-group">
-                            <div class="radio-option">
-                                <input type="radio" id="utensils-yes" name="utensils" value="yes">
-                                <label for="utensils-yes">需要一次性餐具</label>
-                            </div>
-
-                            <div class="radio-option">
-                                <input type="radio" id="utensils-no" name="utensils" value="no" checked>
-                                <label for="utensils-no">不需要一次性餐具</label>
-                            </div>
-                        </div>
-
-                        <div id="utensils-details" style="display: none;">
-                            <label>选择需要的餐具（可多选）</label>
-                            <div class="checkbox-group">
-                                <div class="checkbox-option">
-                                    <input type="checkbox" id="chopsticks" name="chopsticks" value="1">
-                                    <label for="chopsticks">筷子</label>
-                                </div>
-
-                                <div class="checkbox-option">
-                                    <input type="checkbox" id="spoon" name="spoon" value="1">
-                                    <label for="spoon">勺子</label>
-                                </div>
-
-                                <div class="checkbox-option">
-                                    <input type="checkbox" id="fork" name="fork" value="1">
-                                    <label for="fork">叉子</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 配送时间 -->
-                    <div class="form-group">
-                        <label for="delivery-time">期望配送时间</label>
-                        <select id="delivery-time" name="delivery-time">
-                            <option value="asap">尽快送达</option>
-                            <option value="30min">30分钟内</option>
-                            <option value="45min">45分钟内</option>
-                            <option value="60min">60分钟内</option>
-                            <option value="specific">指定时间</option>
-                        </select>
-                    </div>
-
-                    <!-- 备注 -->
-                    <div class="form-group">
-                        <label for="notes">备注</label>
-                        <textarea id="notes" name="notes" rows="3" placeholder="如有特殊要求，请在此备注（如：不要葱姜蒜、辣度要求等）"></textarea>
-                    </div>
-
-                    <!-- 提交按钮 -->
-                    <button type="button" class="btn btn-block" onclick="submitForm()">提交订单</button>
                 </div>
-</main>
+            </div>
+
+            <!-- 配送时间 -->
+            <div class="form-group">
+                <label for="delivery-time">期望配送时间</label>
+                <select id="delivery-time" name="delivery-time">
+                    <option value="asap">尽快送达</option>
+                    <option value="30min">30分钟内</option>
+                    <option value="45min">45分钟内</option>
+                    <option value="60min">60分钟内</option>
+                    <option value="specific">指定时间</option>
+                </select>
+            </div>
+
+            <!-- 备注 -->
+            <div class="form-group">
+                <label for="notes">备注</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="如有特殊要求，请在此备注（如：不要葱姜蒜、辣度要求等）"></textarea>
+            </div>
+
+            <!-- 提交按钮 -->
+            <button type="button" class="btn btn-block" onclick="submitForm()">提交订单</button>
+        </div>
+    </main>
 
     <footer>
         <div class="container">
@@ -834,7 +755,7 @@
                         <li><a href="#">商务合作</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>用户帮助</h3>
                     <ul class="footer-links">
@@ -844,7 +765,7 @@
                         <li><a href="#">意见反馈</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>商家服务</h3>
                     <ul class="footer-links">
@@ -854,7 +775,7 @@
                         <li><a href="#">运营支持</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>关注我们</h3>
                     <ul class="footer-links">
@@ -865,154 +786,444 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="copyright">
-                <p>柚子外卖平台 &copy; 2025 版权所有 | 设计：Ica</p>
+                <p>柚子外卖平台 &copy; 2025 版权所有 Ciallo～(∠·ω< )⌒★ | 设计：ica</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // 菜品价格数据
-        const dishPrices = {
-            dish1: 28,
-            dish2: 26,
-            dish3: 38,
-            dish4: 22
-        };
-        
-        // 配送费数据
-        const deliveryFees = {
-            restaurant1: 5,
-            restaurant2: 6,
-            restaurant3: 8
-        };
-        
+        // 商家数据
+        const restaurants = [
+            {
+                id: 'restaurant1',
+                name: '串味炮馆',
+                category: 'chinese',
+                rating: 8.10,
+                deliveryTime: '-1分钟送达',
+                minOrder: 114,
+                deliveryFee: 514,
+                image: 'assets/1.jpeg',
+                dishes: [
+                    { id: 'dish1', name: '串子', price: 28, description: '串子搭配米饭，香辣可口' },
+                    { id: 'dish2', name: '小炒肉盖饭', price: 26, description: '精选猪肉配以辣椒爆炒' },
+                    { id: 'dish3', name: '麻辣香锅', price: 38, description: '多种食材麻辣炒制，香气四溢' },
+                    { id: 'dish4', name: '宫保鸡丁', price: 32, description: '鸡肉丁配花生米，酸甜微辣' },
+                    { id: 'dish5', name: '水煮鱼', price: 45, description: '鲜嫩鱼片，麻辣鲜香' }
+                ]
+            },
+            {
+                id: 'restaurant2',
+                name: '会员制红茶小馆',
+                category: 'drink',
+                rating: 4.7,
+                deliveryTime: '514分钟送达',
+                minOrder: 1919,
+                deliveryFee: 666,
+                image: 'assets/5.jpg',
+                dishes: [
+                    { id: 'dish6', name: '野兽大红茶', price: 22, description: '' },
+                    { id: 'dish7', name: '干炒牛河', price: 30, description: '牛肉与河粉的完美搭配' },
+                    { id: 'dish8', name: '叉烧包', price: 18, description: '香甜叉烧馅，松软包子' },
+                    { id: 'dish9', name: '白切鸡', price: 35, description: '鲜嫩鸡肉，原汁原味' },
+                    { id: 'dish10', name: '虾饺', price: 25, description: '晶莹剔透，鲜美虾仁' }
+                ]
+            },
+            {
+                id: 'restaurant3',
+                name: '披萨先辈',
+                category: 'western',
+                rating: 4.9,
+                deliveryTime: '114分钟送达',
+                minOrder: 233,
+                deliveryFee: 888,
+                image: 'assets/3.jpg',
+                dishes: [
+                    { id: 'dish11', name: '玛格丽特披萨', price: 48, description: '番茄、马苏里拉奶酪、罗勒' },
+                    { id: 'dish12', name: '意大利面', price: 35, description: '经典番茄肉酱意面' },
+                    { id: 'dish13', name: '木毛大比萨', price: 28, description: '香烤木毛，特制酱料，外酥里嫩' },
+                    { id: 'dish14', name: '蔬菜沙拉', price: 22, description: '新鲜蔬菜搭配特调酱汁' },
+                    { id: 'dish15', name: '提拉米苏', price: 25, description: '经典意大利甜品' }
+                ]
+            },
+            {
+                id: 'restaurant4',
+                name: '汉堡王',
+                category: 'snack',
+                rating: 4.6,
+                deliveryTime: '∞分钟送达',
+                minOrder: 51,
+                deliveryFee: 4,
+                image: 'assets/6.jpg',
+                dishes: [
+                    { id: 'dish16', name: '经典汉堡', price: 25, description: '牛肉饼、生菜、番茄、芝士' },
+                    { id: 'dish17', name: '薯条', price: 12, description: '金黄酥脆，外酥里嫩' },
+                    { id: 'dish18', name: '炸鸡翅', price: 18, description: '香脆炸鸡翅，多种口味' },
+                    { id: 'dish19', name: '奶昔', price: 15, description: '香浓奶昔，多种口味可选' },
+                    { id: 'dish20', name: '洋葱圈', price: 14, description: '金黄酥脆，香气扑鼻' }
+                ]
+            }
+        ];
+
+        // 当前选中的商家和菜品
+        let selectedRestaurant = null;
+        let selectedDishes = {};
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function () {
+            renderRestaurants();
+            renderFormRestaurants();
+
+            // 默认选择第一个商家
+            if (restaurants.length > 0) {
+                selectRestaurant(restaurants[0].id);
+            }
+
+            // 餐具选择事件
+            document.getElementById('utensils-yes').addEventListener('change', function () {
+                document.getElementById('utensils-details').style.display = this.checked ? 'block' : 'none';
+            });
+
+            document.getElementById('utensils-no').addEventListener('change', function () {
+                document.getElementById('utensils-details').style.display = this.checked ? 'none' : 'block';
+            });
+        });
+
+        let sound = document.getElementById("ciallo");
+
+        // 播放音效函数
+        function playSound() {
+            sound.play();
+        }
+
+        // 渲染商家列表
+        function renderRestaurants() {
+            const restaurantList = document.getElementById('restaurantList');
+            restaurantList.innerHTML = '';
+
+            restaurants.forEach(restaurant => {
+                const restaurantCard = document.createElement('div');
+                restaurantCard.className = 'restaurant-card';
+                restaurantCard.onclick = () => selectRestaurant(restaurant.id);
+
+                restaurantCard.innerHTML = `
+                        <div class="restaurant-image" style="background-image: url('${restaurant.image}')"></div>
+                        <div class="restaurant-info">
+                            <h3>${restaurant.name}</h3>
+                            <div class="restaurant-meta">
+                                <span class="rating"><i class="fas fa-star"></i> ${restaurant.rating}</span>
+                                <span>${restaurant.deliveryTime}</span>
+                            </div>
+                            <p>起送价 ¥${restaurant.minOrder} | 配送费 ¥${restaurant.deliveryFee}</p>
+                        </div>
+                    `;
+
+                restaurantList.appendChild(restaurantCard);
+            });
+        }
+
+        // 渲染表单中的商家选择
+        function renderFormRestaurants() {
+            const formRestaurantCards = document.getElementById('formRestaurantCards');
+            formRestaurantCards.innerHTML = '';
+
+            restaurants.forEach(restaurant => {
+                const restaurantCard = document.createElement('div');
+                restaurantCard.className = 'restaurant-card';
+                restaurantCard.onclick = () => selectRestaurant(restaurant.id);
+
+                restaurantCard.innerHTML = `
+                        <h3>${restaurant.name}</h3>
+                        <p>${getCategoryName(restaurant.category)} | ${restaurant.rating}分 | ${restaurant.deliveryTime}</p>
+                        <p>起送价 ¥${restaurant.minOrder} | 配送费 ¥${restaurant.deliveryFee}</p>
+                    `;
+
+                formRestaurantCards.appendChild(restaurantCard);
+            });
+        }
+
+        // 根据分类ID获取分类名称
+        function getCategoryName(categoryId) {
+            const categories = {
+                'chinese': '中餐',
+                'western': '西餐',
+                'snack': '快餐',
+                'dessert': '甜点',
+                'drink': '饮品'
+            };
+            return categories[categoryId] || '其他';
+        }
+
         // 选择商家
         function selectRestaurant(restaurantId) {
-            // 移除之前的选择
+            // 更新选中状态
             document.querySelectorAll('.restaurant-card').forEach(card => {
                 card.classList.remove('selected');
             });
-            
-            // 添加新选择
-            const selectedCard = event.currentTarget;
-            selectedCard.classList.add('selected');
-            
-            // 更新隐藏的输入字段
+
+            // 找到点击的卡片并添加选中状态
+            const clickedCards = document.querySelectorAll(`.restaurant-card`);
+            clickedCards.forEach(card => {
+                if (card.textContent.includes(restaurants.find(r => r.id === restaurantId).name)) {
+                    card.classList.add('selected');
+                }
+            });
+
+            // 更新选中的商家
+            selectedRestaurant = restaurants.find(r => r.id === restaurantId);
             document.getElementById('restaurant').value = restaurantId;
-            
-            // 更新配送费
+
+            // 渲染该商家的菜品
+            renderDishes(selectedRestaurant.dishes);
+
+            // 重置已选菜品
+            for (const dishId in selectedDishes) {
+                selectedDishes[dishId] = 0;
+            }
+
+            // 更新购物车数量
+            updateCartCount();
+
+            // 更新订单摘要
             updateOrderSummary();
         }
-        
+
+        // 渲染菜品
+        function renderDishes(dishes) {
+            const dishOptions = document.getElementById('dishOptions');
+            dishOptions.innerHTML = '';
+
+            dishes.forEach(dish => {
+                const dishOption = document.createElement('div');
+                dishOption.className = 'dish-option';
+                dishOption.setAttribute('data-dish-id', dish.id); // 添加数据属性
+                dishOption.onclick = () => toggleDish(dish.id);
+
+                // 检查是否已经选中该菜品
+                const currentQty = selectedDishes[dish.id] || 0;
+                if (currentQty > 0) {
+                    dishOption.classList.add('selected');
+                }
+
+                dishOption.innerHTML = `
+                <div class="dish-name">${dish.name}</div>
+                <div class="dish-description">${dish.description}</div>
+                <div class="dish-price">¥${dish.price}</div>
+                <div class="quantity-selector">
+                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('${dish.id}', -1)">-</button>
+                    <input type="number" id="${dish.id}-qty" class="quantity-input" value="${currentQty}" min="0" max="10" readonly>
+                    <button type="button" class="quantity-btn" onclick="event.stopPropagation(); adjustQuantity('${dish.id}', 1)">+</button>
+                </div>
+            `;
+
+                dishOptions.appendChild(dishOption);
+            });
+        }
+
         // 切换菜品选择
         function toggleDish(dishId) {
             const dishElement = event.currentTarget;
-            dishElement.classList.toggle('selected');
-            
-            // 如果选中，设置数量为1，否则为0
+
+            // 获取当前数量
             const qtyInput = document.getElementById(`${dishId}-qty`);
-            if (dishElement.classList.contains('selected')) {
+            let currentQty = parseInt(qtyInput.value);
+
+            // 切换选中状态
+            if (currentQty === 0) {
+                // 如果当前数量为0，设置为1
                 qtyInput.value = 1;
-            } else {
-                qtyInput.value = 0;
+                dishElement.classList.add('selected');
+                selectedDishes[dishId] = 1;
             }
-            
+
+            // 更新购物车数量
+            updateCartCount();
+
             // 更新订单摘要
             updateOrderSummary();
         }
-        
+
         // 调整菜品数量
         function adjustQuantity(dishId, change) {
             const qtyInput = document.getElementById(`${dishId}-qty`);
-            let newValue = parseInt(qtyInput.value) + change;
-            
+            let currentQty = parseInt(qtyInput.value);
+            let newValue = currentQty + change;
+
             // 确保数量在0-10之间
             if (newValue < 0) newValue = 0;
             if (newValue > 10) newValue = 10;
-            
+
             qtyInput.value = newValue;
-            
-            // 如果数量为0，取消选中状态
-            const dishElement = document.querySelector(`.dish-option[onclick="toggleDish('${dishId}')"]`);
+
+
+
+            // 更新选中状态
+            const dishElement = document.querySelector(`.dish-option[data-dish-id="${dishId}"]`);
+
             if (newValue === 0) {
                 dishElement.classList.remove('selected');
+                delete selectedDishes[dishId];
             } else {
                 dishElement.classList.add('selected');
+                selectedDishes[dishId] = newValue;
             }
-            
+            console.log(selectedDishes);
+
+            // 更新购物车数量
+            updateCartCount();
+
             // 更新订单摘要
             updateOrderSummary();
-            
+
             // 阻止事件冒泡，避免触发toggleDish
             event.stopPropagation();
         }
-        
+
+        // 更新购物车数量
+        function updateCartCount() {
+            let totalItems = 0;
+            for (const dishId in selectedDishes) {
+                totalItems += selectedDishes[dishId];
+            }
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
         // 更新订单摘要
         function updateOrderSummary() {
+            if (!selectedRestaurant) return;
+
             let subtotal = 0;
-            
-            // 计算菜品总价
-            for (const dishId in dishPrices) {
-                const qtyInput = document.getElementById(`${dishId}-qty`);
-                if (qtyInput) {
-                    const quantity = parseInt(qtyInput.value);
-                    subtotal += dishPrices[dishId] * quantity;
+            const orderItemsContainer = document.getElementById('orderItems');
+            orderItemsContainer.innerHTML = '';
+
+            // 计算菜品总价并生成订单项目
+            for (const dishId in selectedDishes) {
+                const dish = getAllDishes().find(d => d.id === dishId);
+                if (dish) {
+                    const itemTotal = dish.price * selectedDishes[dishId];
+                    subtotal += itemTotal;
+
+                    // 添加订单项目
+                    const orderItem = document.createElement('div');
+                    orderItem.className = 'order-item';
+                    orderItem.innerHTML = `
+                            <span>${dish.name} × ${selectedDishes[dishId]}</span>
+                            <span>¥${itemTotal}</span>
+                        `;
+                    orderItemsContainer.appendChild(orderItem);
                 }
             }
-            
+
+            // 如果没有选择任何菜品，显示提示
+            if (Object.keys(selectedDishes).length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'order-item';
+                emptyMessage.innerHTML = '<span>尚未选择菜品</span><span>¥0</span>';
+                orderItemsContainer.appendChild(emptyMessage);
+            }
+
             // 获取配送费
-            const restaurantId = document.getElementById('restaurant').value;
-            const deliveryFee = deliveryFees[restaurantId] || 0;
-            
+            const deliveryFee = selectedRestaurant.deliveryFee;
+
             // 包装费固定为2元
             const packagingFee = 2;
-            
+
             // 计算总计
             const total = subtotal + deliveryFee + packagingFee;
-            
+
             // 更新显示
-            document.getElementById('subtotal').textContent = `¥${subtotal}`;
             document.getElementById('deliveryFee').textContent = `¥${deliveryFee}`;
             document.getElementById('totalAmount').textContent = `¥${total}`;
+
+            // 检查是否达到起送价，如果未达到则显示提示
+            const minOrderWarning = document.getElementById('minOrderWarning');
+            if (minOrderWarning) {
+                minOrderWarning.remove();
+            }
+
+            if (subtotal > 0 && subtotal < selectedRestaurant.minOrder) {
+                const warning = document.createElement('div');
+                warning.id = 'minOrderWarning';
+                warning.style.color = 'var(--accent-color)';
+                warning.style.marginTop = '0.5rem';
+                warning.style.fontSize = '0.9rem';
+                warning.innerHTML = `该商家起送价为¥${selectedRestaurant.minOrder}，还需购买¥${selectedRestaurant.minOrder - subtotal}的商品`;
+                orderItemsContainer.appendChild(warning);
+            }
         }
-        
-        // 显示/隐藏餐具选项
-        document.getElementById('utensils-yes').addEventListener('change', function() {
-            document.getElementById('utensils-details').style.display = this.checked ? 'block' : 'none';
-        });
-        
-        document.getElementById('utensils-no').addEventListener('change', function() {
-            document.getElementById('utensils-details').style.display = this.checked ? 'none' : 'block';
-        });
-        
+
+        // 获取所有菜品
+        function getAllDishes() {
+            let allDishes = [];
+            restaurants.forEach(restaurant => {
+                allDishes = allDishes.concat(restaurant.dishes);
+            });
+            return allDishes;
+        }
+
+        // 按分类筛选商家
+        function filterByCategory(category) {
+            const restaurantList = document.getElementById('restaurantList');
+            restaurantList.innerHTML = '';
+
+            const filteredRestaurants = category === 'all'
+                ? restaurants
+                : restaurants.filter(r => r.category === category);
+
+            filteredRestaurants.forEach(restaurant => {
+                const restaurantCard = document.createElement('div');
+                restaurantCard.className = 'restaurant-card';
+                restaurantCard.onclick = () => selectRestaurant(restaurant.id);
+
+                restaurantCard.innerHTML = `
+                        <div class="restaurant-image" style="background-image: url('${restaurant.image}')"></div>
+                        <div class="restaurant-info">
+                            <h3>${restaurant.name}</h3>
+                            <div class="restaurant-meta">
+                                <span class="rating"><i class="fas fa-star"></i> ${restaurant.rating}</span>
+                                <span>${restaurant.deliveryTime}</span>
+                            </div>
+                            <p>起送价 ¥${restaurant.minOrder} | 配送费 ¥${restaurant.deliveryFee}</p>
+                        </div>
+                    `;
+
+                restaurantList.appendChild(restaurantCard);
+            });
+        }
+
         // 提交表单（模拟）
         function submitForm() {
             // 简单验证
-            const restaurant = document.getElementById('restaurant').value;
-            if (!restaurant) {
+            if (!selectedRestaurant) {
                 alert('请选择一个商家');
                 return;
             }
-            
+
             // 检查是否选择了菜品
-            let hasSelectedDish = false;
-            for (let i = 1; i <= 4; i++) {
-                if (document.getElementById(`dish${i}-qty`).value > 0) {
-                    hasSelectedDish = true;
-                    break;
-                }
-            }
-            
-            if (!hasSelectedDish) {
+            if (Object.keys(selectedDishes).length === 0) {
                 alert('请至少选择一道菜品');
                 return;
             }
-            
+
+            // 检查是否达到起送价
+            let subtotal = 0;
+            for (const dishId in selectedDishes) {
+                const dish = getAllDishes().find(d => d.id === dishId);
+                if (dish) {
+                    subtotal += dish.price * selectedDishes[dishId];
+                }
+            }
+
+            if (subtotal < selectedRestaurant.minOrder) {
+                alert(`该商家起送价为¥${selectedRestaurant.minOrder}，您的订单金额为¥${subtotal}，请继续添加商品`);
+                return;
+            }
+
             // 模拟提交成功
-            alert('订单提交成功！这只是演示，订单并未真正提交。');
-            
+            playSound();
+            alert('订单提交成功！Ciallo～(∠·ω< )⌒★');
+
             // 重置表单
             document.getElementById('deliveryForm').reset();
             document.querySelectorAll('.restaurant-card, .dish-option').forEach(element => {
@@ -1022,19 +1233,12 @@
                 input.value = 0;
             });
             document.getElementById('utensils-details').style.display = 'none';
-            
-            // 重置第一个菜品为选中状态
-            document.querySelector('.dish-option').classList.add('selected');
-            document.getElementById('dish1-qty').value = 1;
-            
-            // 更新订单摘要
+
+            // 重置选中状态
+            selectedDishes = {};
+            updateCartCount();
             updateOrderSummary();
         }
-        
-        // 初始化页面
-        document.addEventListener('DOMContentLoaded', function() {
-            updateOrderSummary();
-        });
     </script>
 </body>
 </html>
